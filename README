@@ -1,0 +1,4 @@
+Initial version of Spring-Social binding for Mixcloud checked in. 
+
+Authentication flow completed and basic profile operations, allowing Mixcloud profile data to be pulled into 
+Spring Social framework.  Still to do, flush out user profile so it includes images etc and other API operations
