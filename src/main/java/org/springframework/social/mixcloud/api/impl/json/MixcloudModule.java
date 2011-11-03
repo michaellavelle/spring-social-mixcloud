@@ -18,6 +18,7 @@ package org.springframework.social.mixcloud.api.impl.json;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.springframework.social.mixcloud.api.MixcloudProfile;
+import org.springframework.social.mixcloud.api.impl.MixcloudItem;
 
 /**
  * Jackson module for setting up mixin annotations on Mixcloud model types. This
@@ -36,6 +37,8 @@ public class MixcloudModule extends SimpleModule {
 	public void setupModule(SetupContext context) {
 		context.setMixInAnnotations(MixcloudProfile.class,
 				MixcloudProfileMixin.class);
+		context.setMixInAnnotations(MixcloudItem.class,
+				MixcloudItemMixin.class);
 
 	}
 }

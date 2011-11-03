@@ -13,20 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.mixcloud.api;
-
-import java.util.List;
-
-import org.springframework.social.mixcloud.api.impl.MixcloudItem;
+package org.springframework.social.mixcloud.api.impl;
 
 /**
- * Defines operations for interacting with a Mixcloud User
+ * Model class representing a mixcloud item
+ * TODO - Add other attributes
  * 
  * @author Michael Lavelle
  */
-public interface UserOperations {
-
-	public MixcloudProfile getUserProfile();
-	public List<MixcloudItem> getFavorites();
-
+public class MixcloudItem {
+	
+	private String name;
+	private String url;
+	
+	public MixcloudItem(String url,String name)
+	{
+		this.name = name;
+		this.url = url;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	
 }

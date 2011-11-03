@@ -15,8 +15,11 @@
  */
 package org.springframework.social.mixcloud.api.impl;
 
+import java.util.List;
+
 import org.springframework.social.mixcloud.api.MixcloudProfile;
 import org.springframework.social.mixcloud.api.UserOperations;
+import org.springframework.social.mixcloud.api.impl.json.MixcloudFavoritesResponse;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -51,5 +54,15 @@ public abstract class AbstractUserTemplate extends
 		return restTemplate.getForObject(getApiResourceUrl(""),
 				MixcloudProfile.class);
 	}
+	
+	@Override
+	public List<MixcloudItem> getFavorites() {
+		if (authorizationRequiredForAllMethods) {
+			requireAuthorization();
+		}
+		return restTemplate.getForObject(getApiResourceUrl("/favorites"),
+				MixcloudFavoritesResponse.class).getItems();
+	}
+	
 
 }

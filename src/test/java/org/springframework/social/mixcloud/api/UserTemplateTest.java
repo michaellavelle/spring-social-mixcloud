@@ -22,8 +22,11 @@ import static org.springframework.social.test.client.RequestMatchers.method;
 import static org.springframework.social.test.client.RequestMatchers.requestTo;
 import static org.springframework.social.test.client.ResponseCreators.withResponse;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.social.NotAuthorizedException;
+import org.springframework.social.mixcloud.api.impl.MixcloudItem;
 
 public class UserTemplateTest extends AbstractMixcloudApiTest {
 
@@ -40,6 +43,22 @@ public class UserTemplateTest extends AbstractMixcloudApiTest {
 		MixcloudProfile profile = mixcloud.meOperations().getUserProfile();
 		assertBasicProfileData(profile);
 	}
+	
+	@Test
+	public void getFavorites_currentUser() {
+
+		mockServer
+				.expect(requestTo("https://api.mixcloud.com/me/favorites?access_token=someAccessToken"))
+				.andExpect(method(GET))
+				.andRespond(
+						withResponse(jsonResource("testdata/favorites"),
+								responseHeaders));
+
+		List<MixcloudItem> favorites = mixcloud.meOperations().getFavorites();
+		assertItemData(favorites.get(0));
+	}
+	
+	
 
 	@Test(expected = NotAuthorizedException.class)
 	public void getUserProfile_currentUser_unauthorized() {
@@ -66,5 +85,11 @@ public class UserTemplateTest extends AbstractMixcloudApiTest {
 		assertEquals("Cloud Playlists", profile.getName());
 		assertEquals("http://www.mixcloud.com/cloudplaylists", profile.getUrl());
 	}
+	
+	private void assertItemData(MixcloudItem item) {
+		assertEquals("DJRobL - Indi Dance & Nu Disco Vol 2", item.getName());
+		assertEquals("http://www.mixcloud.com/DJRobL/djrobl-indi-dance-nu-disco-vol-2/", item.getUrl());
+	}
+
 
 }

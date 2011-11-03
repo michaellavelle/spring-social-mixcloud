@@ -13,20 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.mixcloud.api;
+package org.springframework.social.mixcloud.api.impl.json;
 
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.social.mixcloud.api.impl.MixcloudItem;
+import org.springframework.social.mixcloud.api.impl.MixcloudItemList;
 
 /**
- * Defines operations for interacting with a Mixcloud User
- * 
  * @author Michael Lavelle
  */
-public interface UserOperations {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MixcloudFavoritesResponse {
 
-	public MixcloudProfile getUserProfile();
-	public List<MixcloudItem> getFavorites();
+	private MixcloudItemList itemList;
 
+	@JsonCreator
+	public MixcloudFavoritesResponse(
+			@JsonProperty("data") MixcloudItemList itemList) {
+		this.itemList = itemList;
+	}
+
+	public List<MixcloudItem> getItems() {
+		return itemList;
+	}
 }

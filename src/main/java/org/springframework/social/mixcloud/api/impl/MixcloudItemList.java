@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.mixcloud.api;
+package org.springframework.social.mixcloud.api.impl;
 
-import java.util.List;
-
-import org.springframework.social.mixcloud.api.impl.MixcloudItem;
+import java.util.ArrayList;
 
 /**
- * Defines operations for interacting with a Mixcloud User
+ * MixcloudItem list wrapper - allows for easy json binding as this is now a non-generic list
  * 
  * @author Michael Lavelle
  */
-public interface UserOperations {
-
-	public MixcloudProfile getUserProfile();
-	public List<MixcloudItem> getFavorites();
+public class MixcloudItemList extends ArrayList<MixcloudItem> {
 
 }
