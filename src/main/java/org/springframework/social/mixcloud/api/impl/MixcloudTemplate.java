@@ -46,11 +46,11 @@ public class MixcloudTemplate extends AbstractOAuth2ApiBinding implements
 	private ObjectMapper objectMapper;
 
 	/**
-	 * Create a new instance of SoundCloudTemplate. This constructor creates a
-	 * new SoundCloudTemplate able to perform unauthenticated operations against
-	 * SoundCloud's API. Some operations do not require OAuth authentication.
+	 * Create a new instance of MixcloudTemplate. This constructor creates a
+	 * new MixcloudTemplate able to perform unauthenticated operations against
+	 * Mixcloud's API. Some operations do not require OAuth authentication.
 	 * For example, retrieving a specified user's profile or feed does not
-	 * require authentication . A SoundCloudTemplate created with this
+	 * require authentication . A MixcloudTemplate created with this
 	 * constructor will support those operations. Those operations requiring
 	 * authentication will throw {@link NotAuthorizedException}.
 	 */
@@ -59,11 +59,11 @@ public class MixcloudTemplate extends AbstractOAuth2ApiBinding implements
 	}
 
 	/**
-	 * Create a new instance of SoundCloudTemplate. This constructor creates the
-	 * SoundCloudTemplate using a given access token.
+	 * Create a new instance of MixcloudTemplate. This constructor creates the
+	 * MixcloudTemplate using a given access token.
 	 * 
 	 * @param accessToken
-	 *            An access token given by SoundCloud after a successful OAuth 2
+	 *            An access token given by Mixcloud after a successful OAuth 2
 	 *            authentication
 	 */
 	public MixcloudTemplate(String accessToken) {
