@@ -17,11 +17,12 @@ package org.springframework.social.mixcloud.api.impl.json;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.social.mixcloud.api.impl.MixcloudItem;
 import org.springframework.social.mixcloud.api.impl.MixcloudItemList;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Michael Lavelle

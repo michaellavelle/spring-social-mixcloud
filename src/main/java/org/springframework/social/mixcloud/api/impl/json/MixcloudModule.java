@@ -15,10 +15,11 @@
  */
 package org.springframework.social.mixcloud.api.impl.json;
 
-import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.module.SimpleModule;
 import org.springframework.social.mixcloud.api.MixcloudProfile;
 import org.springframework.social.mixcloud.api.impl.MixcloudItem;
+
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 /**
  * Jackson module for setting up mixin annotations on Mixcloud model types. This
@@ -30,7 +31,7 @@ import org.springframework.social.mixcloud.api.impl.MixcloudItem;
 public class MixcloudModule extends SimpleModule {
 
 	public MixcloudModule() {
-		super("MixcloudProfile", new Version(1, 0, 0, null));
+		super("MixcloudProfile", new Version(1, 0, 0, null,null,null));
 	}
 
 	@Override

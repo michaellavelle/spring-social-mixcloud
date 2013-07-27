@@ -38,7 +38,7 @@ public abstract class AbstractMixcloudOperations {
 
 	protected void requireAuthorization() {
 		if (!isAuthorizedForUser) {
-			throw new MissingAuthorizationException();
+			throw new MissingAuthorizationException("mixcloud");
 		}
 	}
 

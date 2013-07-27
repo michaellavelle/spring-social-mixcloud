@@ -1,0 +1,1 @@
+http\://www.springframework.org/schema/social/mixcloud=org.springframework.social.mixcloud.config.xml.MixcloudNamespaceHandler

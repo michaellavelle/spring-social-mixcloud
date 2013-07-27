@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 the original author or authors.
+ * Copyright 2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.mixcloud.api.impl.json;
+package org.springframework.social.mixcloud.security;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.social.mixcloud.api.Mixcloud;
+import org.springframework.social.mixcloud.connect.MixcloudConnectionFactory;
+import org.springframework.social.security.provider.OAuth2AuthenticationService;
 
 /**
- * Annotated mixin to add Jackson annotations to MixcloudItem.
  * 
- * @author Michael Lavelle
+* @author Michael Lavelle
+ *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-abstract class MixcloudItemMixin {
+public class MixcloudAuthenticationService extends OAuth2AuthenticationService<Mixcloud> {
 
-	@JsonCreator
-	MixcloudItemMixin(@JsonProperty("url") String url,
-			@JsonProperty("name") String name) {
+	public MixcloudAuthenticationService(String appKey,
+			String appSecret) {
+		super(new MixcloudConnectionFactory(appKey, appSecret));
 	}
 
 }

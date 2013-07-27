@@ -23,10 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.InternalServerErrorException;
@@ -38,6 +34,11 @@ import org.springframework.social.ServerDownException;
 import org.springframework.social.SocialException;
 import org.springframework.social.UncategorizedApiException;
 import org.springframework.web.client.DefaultResponseErrorHandler;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Subclass of {@link DefaultResponseErrorHandler} that handles errors from
@@ -95,7 +96,7 @@ public class MixcloudErrorHandler extends DefaultResponseErrorHandler {
 			if (errorDetails instanceof UncategorizedApiException) {
 				String message = errorDetails.getMessage();
 				if (AUTHORIZATION_FAILURE_MESSAGES.contains(message)) {
-					throw new NotAuthorizedException(message);
+					throw new NotAuthorizedException("mixcloud",message);
 				} else {
 					throw errorDetails;
 
@@ -105,14 +106,14 @@ public class MixcloudErrorHandler extends DefaultResponseErrorHandler {
 			}
 
 		} else if (statusCode == HttpStatus.UNAUTHORIZED) {
-			throw new NotAuthorizedException(errorDetails.getMessage());
+			throw new NotAuthorizedException("mixcloud",errorDetails.getMessage());
 		} else if (statusCode == HttpStatus.FORBIDDEN) {
 
-			throw new OperationNotPermittedException(errorDetails.getMessage());
+			throw new OperationNotPermittedException("mixcloud",errorDetails.getMessage());
 		} else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR) {
-			throw new InternalServerErrorException(errorDetails.getMessage());
+			throw new InternalServerErrorException("mixcloud",errorDetails.getMessage());
 		} else if (statusCode == HttpStatus.SERVICE_UNAVAILABLE) {
-			throw new ServerDownException(errorDetails.getMessage());
+			throw new ServerDownException("mixcloud",errorDetails.getMessage());
 		}
 	}
 
@@ -126,7 +127,7 @@ public class MixcloudErrorHandler extends DefaultResponseErrorHandler {
 			if (errorDetails != null) {
 				throw errorDetails;
 			} else {
-				throw new UncategorizedApiException(
+				throw new UncategorizedApiException("mixcloud",
 						"No error details from Mixcloud", e);
 			}
 		}
@@ -151,21 +152,21 @@ public class MixcloudErrorHandler extends DefaultResponseErrorHandler {
 			if (responseMap.containsKey("error")) {
 				Object error = responseMap.get("error");
 				if (error instanceof String) {
-					return new UncategorizedApiException(
+					return new UncategorizedApiException("mixcloud",
 							responseMap.get("error"), new RuntimeException(
 									responseMap.get("error")));
 				} else if (error instanceof Map) {
 					Map errorMap = (Map) error;
 					String type = (String) ((Map) error).get("type");
 					if ("OAuthException".equals(type)) {
-						return new InvalidAuthorizationException(
+						return new InvalidAuthorizationException("mixcloud",
 								(String) errorMap.get("message"));
 					}
 					if ("ResourceNotFoundException".equals(type)) {
-						return new ResourceNotFoundException(
+						return new ResourceNotFoundException("mixcloud",
 								(String) errorMap.get("message"));
 					}
-					return new UncategorizedApiException(
+					return new UncategorizedApiException("mixcloud",
 							responseMap.get("error"), new RuntimeException(
 									responseMap.get("error")));
 				} else {
