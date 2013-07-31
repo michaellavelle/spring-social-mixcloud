@@ -40,7 +40,10 @@ public class MixcloudOAuth2Template extends OAuth2Template {
 				.bufferRequests(getRestTemplate().getRequestFactory()));
 		// Set our mixcloud-specific error handler for OAuth error handling
 		getRestTemplate().setErrorHandler(new MixcloudErrorHandler());
+		setUseParametersForClientAuthentication(true);
 	}
+	
+	
 
 	/**
 	 * OAuth2Template assumes the request for an access token is a POST request
